@@ -18,7 +18,7 @@ Average training loss: 1.3280
 Average validation loss: 2.4502 
 
 saved_model:
-.
+
 
 └── fine_tuned_bart
 
