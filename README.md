@@ -13,3 +13,7 @@ Outlay:
 - Setup & initialization
 - training loop
 - Evaluation loop
+## Model Validation (Custom)
+Performance metrics - ROUGE (Recall-Oriented Understudy for Gisting Evaluation) is best suited to evaluate the model's performance for 'Text Summarizer'.
+
+Aimed to implement a custom evaluation function that calculate ROGUE based on model's inference.
