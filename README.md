@@ -19,6 +19,7 @@ Average validation loss: 2.4502
 
 saved_model:
 .
+
 └── fine_tuned_bart
 
     ├── config.json
@@ -34,7 +35,7 @@ saved_model:
     ├── tokenizer_config copy.json
 
     ├── tokenizer_config.json
-    
+
     └── vocab.json
  
 ## Model Validation (Custom)
