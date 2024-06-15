@@ -82,8 +82,15 @@ Considered the performance metrics of the models trained by the forementioned me
 After the due analysis, the model trained using 'Method 2' was selected.
 
 ## Model Deployment
-### Interface
+### Testing Interface
 Gradio - an open-source Python package that allows us to quickly build a demo - web-application for the trained models.
 For the initial phase after model validation, the 'gradio' library is best suited for our objective.
 
 Implemented in src/interface.ipynb .
+
+### Deployment (Ongoing)
+Exploring methods in FastAPI and Flask for selecting the suitable one.
+Learning about the Docker containerization.
+
+## Extractive Summarization Model (Ongoing)
+Working on it.
