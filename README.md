@@ -93,4 +93,4 @@ Exploring methods in FastAPI and Flask for selecting the suitable one.
 Learning about the Docker containerization.
 
 ## Extractive Summarization Model (Ongoing)
-Working on it.
+Working on it. Considering rule-based approach.
