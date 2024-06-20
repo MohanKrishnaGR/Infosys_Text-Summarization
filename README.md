@@ -89,8 +89,14 @@ For the initial phase after model validation, the 'gradio' library is best suite
 Implemented in src/interface.ipynb .
 
 ### Deployment (Ongoing)
-Exploring methods in FastAPI and Flask for selecting the suitable one.
-Learning about the Docker containerization.
+Ultilized FastAPI for backend development, fined tunned transformers (summarizer/saved_model) for text summarization, and Docker for deployment for a robust and scalable text summarization application capable of handling various input sources and generating concise summaries efficiently.
+
+Implmented extractor modules to handles various input sources (URL, pdf, docx, txt)
+
+To use the docker image run:
+```
+docker pull mohankrishnagr/infosys_text-summarization
+```
 
 ## Extractive Summarization Model (Ongoing)
 Working on it. Considering rule-based approach.
