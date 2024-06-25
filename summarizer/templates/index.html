@@ -17,66 +17,137 @@
         button:hover { background-color: #0056b3; }
         .result { margin-top: 20px; padding: 20px; background-color: #f9f9f9; border: 1px solid #ccc; border-radius: 5px; }
         .summary { font-size: 18px; margin-top: 10px; }
+        .loading { text-align: center; }
+        .error { color: red; text-align: center; }
     </style>
 </head>
 <body>
+    
     <div class="container">
+
+        <div align='center'>
+            <a href="https://imgbb.com/"><img src="https://i.ibb.co/KyRp80C/springboard-logo.jpg" alt="springboard-logo" border="0" height='80'></a>
+        </div>
         <h1>Text Summarizer</h1>
         <form id="url-form">
             <label for="url">Enter URL:</label>
-            <input type="text" id="url" name="url" placeholder="https://example.com" required>
+            <input type="text" id="url" name="url" placeholder="https://example.com" required aria-label="URL input">
             <button type="submit"><i class="fas fa-search"></i> Summarize URL</button>
         </form>
         <form id="file-form" enctype="multipart/form-data" style="margin-top: 20px;">
             <label for="file">Upload File:</label>
-            <input type="file" id="file" name="file" required>
+            <input type="file" id="file" name="file" accept=".txt,.pdf,.docx" required aria-label="File upload">
             <button type="submit"><i class="fas fa-upload"></i> Summarize File</button>
         </form>
         <form id="text-form" style="margin-top: 20px;">
             <label for="text">Enter Text:</label>
-            <input type="text" id="text" name="text" placeholder="Enter text to summarize" required>
+            <input type="text" id="text" name="text" placeholder="Enter text to summarize" required aria-label="Text input">
             <button type="submit"><i class="fas fa-keyboard"></i> Summarize Text</button>
         </form>
         <div class="result" id="result"></div>
+        <div class="loading" id="loading" style="display: none;"><i class="fas fa-spinner fa-spin"></i> Loading...</div>
+        <div class="error" id="error" style="display: none;"></div>
+    </div>
+    
+    <div style="text-align: center; margin-top: 20px;">
+        <p style="font-size: 16px; color: #666;">Text summarizer developed by Mohan Krishna G R, AI/ML Intern @ Infosys. Connect with me on <a href="https://www.linkedin.com/in/grmk" style="color: #007bff; text-decoration: none;" target="_blank">LinkedIn</a>.</p>
+    </div>
+
+    <div style="text-align: center;margin-top: 30px;">
+
+        <a href="https://www.linkedin.com/in/grmk" target="_blank" style="color: #007bff; text-decoration: none; margin-right: 10px;">
+            <i class="fab fa-linkedin fa-lg"></i>
+        </a>
+        <a href="https://github.com/MohanKrishnaGR" target="_blank" style="color: #333; text-decoration: none; margin-right: 10px;">
+            <i class="fab fa-github fa-lg"></i>
+        </a>
+        <a href="mailto:mohankrishnagr08@gmail.com" style="color: #d93025; text-decoration: none; margin-right: 10px;">
+            <i class="far fa-envelope fa-lg"></i>
+        </a>
+        <a href="https://discordapp.com/users/mohan.krishna" target="_blank" style="color: #7289da; text-decoration: none; margin-right: 10px;">
+            <i class="fab fa-discord fa-lg"></i>
+        </a>
     </div>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script>
         $(document).ready(function() {
+            const showError = (message) => {
+                $('#error').text(message).show();
+                $('#loading').hide();
+            };
+
+            const handleResponse = (response) => {
+                if (response.ok) {
+                    return response.json();
+                } else {
+                    return response.json().then((data) => {
+                        throw new Error(data.error || 'An error occurred');
+                    });
+                }
+            };
+
             $('#url-form').submit(async function(e) {
                 e.preventDefault();
+                $('#loading').show();
+                $('#error').hide();
                 const url = $('#url').val();
-                const response = await fetch('/summarize-url', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-                    body: new URLSearchParams({ 'url': url })
-                });
-                const data = await response.json();
-                $('#result').html(`<div class="summary"><strong>Summary:</strong> ${data.summary}</div>`);
+                try {
+                    const response = await fetch('/summarize-url', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+                        body: new URLSearchParams({ 'url': url })
+                    });
+                    const data = await handleResponse(response);
+                    $('#result').html(`<div class="summary"><strong>Abstractive Summary:</strong> ${data.abstractive_summary}</div>
+                                       <div class="summary"><strong>Extractive Summary:</strong> ${data.extractive_summary}</div>`);
+                } catch (error) {
+                    showError(error.message);
+                } finally {
+                    $('#loading').hide();
+                }
             });
 
             $('#file-form').submit(async function(e) {
                 e.preventDefault();
+                $('#loading').show();
+                $('#error').hide();
                 const formData = new FormData();
                 formData.append('file', $('#file')[0].files[0]);
-                const response = await fetch('/summarize-file', {
-                    method: 'POST',
-                    body: formData
-                });
-                const data = await response.json();
-                $('#result').html(`<div class="summary"><strong>Summary:</strong> ${data.summary}</div>`);
+                try {
+                    const response = await fetch('/summarize-file', {
+                        method: 'POST',
+                        body: formData
+                    });
+                    const data = await handleResponse(response);
+                    $('#result').html(`<div class="summary"><strong>Abstractive Summary:</strong> ${data.abstractive_summary}</div>
+                                       <div class="summary"><strong>Extractive Summary:</strong> ${data.extractive_summary}</div>`);
+                } catch (error) {
+                    showError(error.message);
+                } finally {
+                    $('#loading').hide();
+                }
             });
 
             $('#text-form').submit(async function(e) {
                 e.preventDefault();
+                $('#loading').show();
+                $('#error').hide();
                 const text = $('#text').val();
-                const response = await fetch('/summarize-text', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-                    body: new URLSearchParams({ 'text': text })
-                });
-                const data = await response.json();
-                $('#result').html(`<div class="summary"><strong>Summary:</strong> ${data.summary}</div>`);
+                try {
+                    const response = await fetch('/summarize-text', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+                        body: new URLSearchParams({ 'text': text })
+                    });
+                    const data = await handleResponse(response);
+                    $('#result').html(`<div class="summary"><strong>Abstractive Summary:</strong> ${data.abstractive_summary}</div>
+                                       <div class="summary"><strong>Extractive Summary:</strong> ${data.extractive_summary}</div>`);
+                } catch (error) {
+                    showError(error.message);
+                } finally {
+                    $('#loading').hide();
+                }
             });
         });
     </script>
