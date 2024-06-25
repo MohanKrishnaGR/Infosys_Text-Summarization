@@ -97,8 +97,12 @@ Implmented extractor modules to handles various input sources (URL, pdf, docx, t
 
 To use the docker image run:
 ```
-docker pull mohankrishnagr/infosys_text-summarization
+docker pull mohankrishnagr/infosys_text-summarization:final
+docker run -p 8000:8000 mohankrishnagr/infosys_text-summarization:final
 ```
-
-## Extractive Summarization Model (Ongoing)
-Working on it. Considering rule-based approach.
+Then checkout at,
+```
+http://localhost:8000/
+```
+## Extractive Summarization Model 
+Implemented rule-based approach.
