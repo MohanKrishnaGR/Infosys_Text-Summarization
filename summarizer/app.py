@@ -4,6 +4,7 @@ from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
 from extractors import extract_text_from_url, extract_text_from_pdf, extract_text_from_docx
 from transformers import BartForConditionalGeneration, BartTokenizer
+from extractive_summary import generate_summary as generate_extractive_summary
 
 app = FastAPI()
 
@@ -25,8 +26,9 @@ async def read_root(request: Request):
 @app.post("/summarize-url")
 async def summarize_url(url: str = Form(...)):
     text = extract_text_from_url(url)
-    summary = summarize_text(text)
-    return JSONResponse(content={"summary": summary})
+    abstractive_summary = summarize_text(text)
+    extractive_summary = generate_extractive_summary(text)
+    return JSONResponse(content={"abstractive_summary": abstractive_summary, "extractive_summary": extractive_summary})
 
 @app.post("/summarize-file")
 async def summarize_file(file: UploadFile = File(...)):
@@ -41,13 +43,15 @@ async def summarize_file(file: UploadFile = File(...)):
     else:
         return JSONResponse(content={"error": "Unsupported file type"}, status_code=400)
 
-    summary = summarize_text(text)
-    return JSONResponse(content={"summary": summary})
+    abstractive_summary = summarize_text(text)
+    extractive_summary = generate_extractive_summary(text)
+    return JSONResponse(content={"abstractive_summary": abstractive_summary, "extractive_summary": extractive_summary})
 
 @app.post("/summarize-text")
 async def summarize_text_direct(text: str = Form(...)):
-    summary = summarize_text(text)
-    return JSONResponse(content={"summary": summary})
+    abstractive_summary = summarize_text(text)
+    extractive_summary = generate_extractive_summary(text)
+    return JSONResponse(content={"abstractive_summary": abstractive_summary, "extractive_summary": extractive_summary})
 
 if __name__ == '__main__':
     import uvicorn
