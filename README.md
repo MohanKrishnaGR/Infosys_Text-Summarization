@@ -104,5 +104,10 @@ Then checkout at,
 ```
 http://localhost:8000/
 ```
+### Deployed in AWS EC2
+Public IP:
+```
+http://54.168.82.95:8000/
+```
 ## Extractive Summarization Model 
 Implemented rule-based approach.
