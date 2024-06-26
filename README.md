@@ -122,5 +122,9 @@ Public IP:
 ```
 http://20.219.203.134:8000/
 ```
+FQDN
+```
+http://mohankrishnagr.centralindia.azurecontainer.io:8000/
+```
 ## Extractive Summarization Model 
 Implemented rule-based approach.
