@@ -21,7 +21,7 @@ jobs:
 
     - name: Deploy to EC2
       run: |
-        ssh -o StrictHostKeyChecking=no ec2-user@your-ec2-instance-public-dns << 'EOF'
+        ssh -o StrictHostKeyChecking=no ec2-user@ec2-54-168-82-95.ap-northeast-1.compute.amazonaws.com << 'EOF'
           docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD
           docker pull mohankrishnagr/infosys_text-summarization:final
           docker stop $(docker ps -a -q)
