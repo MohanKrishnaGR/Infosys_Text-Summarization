@@ -21,12 +21,12 @@ jobs:
         with:
           creds: ${{ secrets.AZURE_RBAC_CREDENTIALS }}  # set up AZURE_RBAC_CREDENTIALS secrets in your repository
 
-      - name: Update Azure Container Instance
-        run: |
-          az container update \
-            --resource-group ${{ secrets.RESOURCE_GROUP }} \
-            --name ${{ secrets.CONTAINER_GROUP_NAME }} \
-            --containers name=${{ secrets.CONTAINER_NAME }} image=${{ secrets.REGISTRY_NAME }}/infosys_text-summarization:latest
+      #- name: Update Azure Container Instance
+      #  run: |
+      #    az container update \
+      #      --resource-group ${{ secrets.RESOURCE_GROUP }} \
+      #      --name ${{ secrets.CONTAINER_GROUP_NAME }} \
+      #      --containers name=${{ secrets.CONTAINER_NAME }} image=${{ secrets.REGISTRY_NAME }}/infosys_text-summarization:latest
 
       - name: Restart Azure Container Instance
         run: |
