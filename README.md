@@ -3,7 +3,7 @@
 </div>
 
 
-![CI/CD Pipeline](https://github.com/MohanKrishnaGR/Infosys_Text-Summarization/actions/workflows/deploy.yml/badge.svg)
+![CI/CD Pipeline](https://github.com/MohanKrishnaGR/Infosys_Text-Summarization/actions/workflows/deploy.yml/badge.svg) [![Deploy to Azure Container Instance](https://github.com/MohanKrishnaGR/Infosys_Text-Summarization/actions/workflows/azure.yml/badge.svg)](https://github.com/MohanKrishnaGR/Infosys_Text-Summarization/actions/workflows/azure.yml)
 
 ![Docker Image Version](https://img.shields.io/docker/v/mohankrishnagr/infosys_text-summarization)
 ![Docker Pulls](https://img.shields.io/docker/pulls/mohankrishnagr/infosys_text-summarization)
@@ -115,6 +115,12 @@ http://localhost:8000/
 Public IP:
 ```
 http://54.168.82.95/
+```
+
+### Deployed in Azure Container Instance
+Public IP:
+```
+http://20.219.203.134:8000/
 ```
 ## Extractive Summarization Model 
 Implemented rule-based approach.
