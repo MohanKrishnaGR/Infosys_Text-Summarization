@@ -9,8 +9,6 @@
 ![Docker Pulls](https://img.shields.io/docker/pulls/mohankrishnagr/infosys_text-summarization)
 ![Docker Image Size](https://img.shields.io/docker/image-size/mohankrishnagr/infosys_text-summarization/final)
 
-
-
 # Infosy_Text-Summarization
 A project by AI/ML Intern @ Infosys Springboard, Summer 2024.
 
