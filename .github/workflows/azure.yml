@@ -30,6 +30,5 @@ jobs:
 
       - name: Restart Azure Container Instance
         run: |
-          az container restart \
-            --resource-group ${{ secrets.RESOURCE_GROUP }} \
-            --name ${{ secrets.CONTAINER_GROUP_NAME }}
+          az container restart --name ${{ secrets.CONTAINER_GROUP_NAME }} --resource-group ${{ secrets.RESOURCE_GROUP }}
+                     
