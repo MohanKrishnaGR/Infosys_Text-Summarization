@@ -2,7 +2,14 @@
     <a href="https://imgbb.com/"><img src="https://i.ibb.co/KyRp80C/springboard-logo.jpg" alt="springboard-logo" border="0" height='80'></a>
 </div>
 
-![Docker Image Version](https://img.shields.io/docker/v/mohankrishnagr/infosys_text-summarization) ![Docker Pulls](https://img.shields.io/docker/pulls/mohankrishnagr/infosys_text-summarization)
+
+![CI/CD Pipeline](https://github.com/MohanKrishnaGR/Infosys_Text-Summarization/actions/workflows/deploy.yml/badge.svg)
+
+![Docker Image Version](https://img.shields.io/docker/v/mohankrishnagr/infosys_text-summarization)
+![Docker Pulls](https://img.shields.io/docker/pulls/mohankrishnagr/infosys_text-summarization)
+![Docker Image Size](https://img.shields.io/docker/image-size/mohankrishnagr/infosys_text-summarization/final)
+
+
 
 # Infosy_Text-Summarization
 ## Data Collection
