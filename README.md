@@ -12,6 +12,8 @@
 
 
 # Infosy_Text-Summarization
+A project by AI/ML Intern @ Infosys Springboard, Summer 2024.
+
 ## Data Collection
 Merged selective dataset from 
 - CNN, Daily Mail : News, 
