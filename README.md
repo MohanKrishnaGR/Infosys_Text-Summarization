@@ -1,5 +1,5 @@
 <div align='center'>
-    <a href="https://imgbb.com/"><img src="https://i.ibb.co/KyRp80C/springboard-logo.jpg" alt="springboard-logo" border="0" height='80'></a>
+    <a><img src="https://i.ibb.co/P4B4LrL/springboard-logo-removebg-preview.png" alt="springboard-logo-removebg-preview" border="0"></a>
 </div>
 
 
