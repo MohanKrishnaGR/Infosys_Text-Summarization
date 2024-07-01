@@ -5,7 +5,7 @@
 
 ![CI/CD Pipeline](https://github.com/MohanKrishnaGR/Infosys_Text-Summarization/actions/workflows/deploy.yml/badge.svg) [![Deploy to Azure Container Instance](https://github.com/MohanKrishnaGR/Infosys_Text-Summarization/actions/workflows/azure.yml/badge.svg)](https://github.com/MohanKrishnaGR/Infosys_Text-Summarization/actions/workflows/azure.yml)
 
-![Docker Image Version](https://img.shields.io/docker/v/mohankrishnagr/infosys_text-summarization)
+![Docker Image Version](https://img.shields.io/docker/v/mohankrishnagr/infosys_text-summarization/final)
 ![Docker Pulls](https://img.shields.io/docker/pulls/mohankrishnagr/infosys_text-summarization)
 ![Docker Image Size](https://img.shields.io/docker/image-size/mohankrishnagr/infosys_text-summarization/final)
 
