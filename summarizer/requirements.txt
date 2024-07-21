@@ -10,4 +10,5 @@ torch  # Add PyTorch
 jinja2
 pandas
 nltk
+gdown
 scikit-learn
