@@ -10,99 +10,175 @@
 ![Docker Image Size](https://img.shields.io/docker/image-size/mohankrishnagr/infosys_text-summarization/final)
 
 # Infosy_Text-Summarization
-A project by AI/ML Intern @ Infosys Springboard, Summer 2024.
+A project by <em>Mohan Krishna G R</em>, AI/ML Intern @ Infosys Springboard, Summer 2024.
+
+## Contents
+- [Problem Statement](#problem-statement)
+- [Project Statement](#project-statement)
+- [Approach to Solution](#approach-to-solution)
+- [Background Research](#background-research)
+- [Solution](#solution)
+- [Workflow](#workflow)
+- [Data Collection](#data-collection)
+- [Abstractive Text Summarization](#abstractive-text-summarization)
+- [Extractive Text Summarization](#extractive-text-summarization)
+- [Testing](#testing)
+- [Deployment](#deployment)
+- [Containerization](#containerization)
+- [CI/CD Pipeline](#cicd-pipeline)
+
+## Problem Statement
+- Developing an automated text summarization system that can accurately and efficiently condense large bodies of text into concise summaries is essential for enhancing business operations.
+- This project aims to deploy NLP techniques to create a robust text summarization tool capable of handling various types of documents across different domains.
+- The system should deliver high-quality summaries that retain the core information and contextual meaning of the original text.
+
+## Project Statement
+- Text Summarization focuses on converting large bodies of text into a few sentences summing up the gist of the larger text.
+- There is a wide variety of applications for text summarization including News Summary, Customer Reviews, Research Papers, etc.
+- This project aims to understand the importance of text summarization and apply different techniques to fulfill the purpose.
+
+## Approach to Solution
+- **Figure:** Intended Plan
+<div align="center">
+    <a><img src="https://drive.usercontent.google.com/u/0/uc?id=1cn429WFQzvF1eDwEFiLsIk87M8KBELt8&export=download" border="0"></a>
+</div>
+
+
+## Background Research
+- **Literature Review**
+<div align="center">
+    <a><img src="https://drive.usercontent.google.com/u/0/uc?id=1201kWfyGURgsA32u6Xe_WPSrO0izo8Fg&export=download" border="0"></a>
+</div>
+
+## Solution
+- **Selected Deep Learning Architecture**
+
+## Workflow
+- Workflow for Abstractive Text Summarizer:
+<div align="center">
+    <a><img src="https://drive.usercontent.google.com/u/0/uc?id=1-smea28F10cOnmXXUj24QkzEZL-ffhWt&export=download" border="0"></a>
+</div><br>
+
+- Workflow for Extractive Text Summarizer:
+<div align="center">
+    <a><img src="https://drive.usercontent.google.com/u/0/uc?id=1vS2Gm5ccJvjxH7fsnyOf3ARk2pNTR75p&export=download" border="0"></a>
+</div>
+
 
 ## Data Collection
-Merged selective dataset from 
-- CNN, Daily Mail : News, 
-- BillSum: Legal, 
-- ArXiv : Scientific,
-- Dialoguesum : Conversations.
+- Data Preprocessing & Pre-processing Implemented in `src/data_preprocessing`.
+- Data collection from different sources:
+  - CNN, Daily Mail: News
+  - BillSum: Legal
+  - ArXiv: Scientific
+  - Dialoguesum: Conversations
+- Data integration ensures robust and multi-objective data, including News articles, Legal Documents – Acts, Judgements, Scientific papers, and Conversations.
+- Validated the data through Data Statistics and Exploratory Data Analysis (EDA) using Frequency Plotting for every data source.
+- Data cleansing optimized for NLP tasks: removed null records, lowercasing, punctuation removal, stop words removal, and lemmatization.
+- Data splitting using sci-kit learn for training, testing, and validating the model, saved in CSV format.
 
-Robust, multi-objective data.
+## Abstractive Text Summarization
+### Model Training & Evaluation
+- **Training:**
+  - Selected transformer architecture for ABSTRACTIVE SUMMARIZATION: fine-tuning a pre-trained model.
+  - Chosen Facebook’s Bart Large model for its performance metrics and efficient trainable parameters.
+      -  406,291,456 training parameters.
+    
+<div align="center">
+    <a><img src="https://drive.usercontent.google.com/u/0/uc?id=1fe7MMx_-kEAN9c0QVJbsMj9dBUNgEZX8&export=download" border="0"></a>
+</div><br>
+
+- **Methods:**
+  - Native PyTorch Implementation
+  - Trainer API Implementation
+
+### Method 1 - Native PyTorch
+- Trained the model using manual training loop and evaluation loop in PyTorch. Implemented in: `src/model.ipynb`
+- **Model Evaluation:** Source code:`src/evaluation.ipynb`
+    - Obtained inconsistent results in inferencing.
+    - ROUGE1 (F-Measure) = 00.018
+    - There's a suspected tensor error while training using method 1, which could be attributed to the inconsistency of the model's output.
+    - Rejected for the further deployment.
+    - Dire need to implement alternative approach.   
+
+### Method 2 – Trainer Class Implementation
+- Utilized Trainer API from Hugging Face for optimized transformer model training. Implemented in: `src/bart.ipynb`
+    - The model was trained with whole dataset for 10 epochs for 26:24:22 (HH:MM:SS) in 125420 steps.
+     
+- **Evaluation:** Performance metrics using ROUGE scores. Source code: `src/rouge.ipynb`
+    - Model 2 - results outperformed that of method 1.
+    - <strong>ROUGE1 (F-Measure) = 61.32</strong> -> Benchmark grade
+        - Significantly higher than typical scores reported for state-of-the-art models on common datasets.
+    - GPT4 performance for text summarization - ROUGE1 (F-Measure) is 63.22
+    - Selected for further deployment.
  
-## Models
+- Comparative analysis showed significant improvement in performance after fine-tuning. Source code: `src/compare.ipynb`
+<div align="center">
+    <a><img src="https://drive.usercontent.google.com/u/0/uc?id=1V4u8ohFNFcceidx3l43LNjxTbtLZ233g&export=download" border="0"></a>
+</div><br>
 
-## Method 1
-### -> Native PyTorch
-### Model Training
+## Extractive Text Summarization
+- Rather than choosing computationally intensive deep-learning models, utilizing a rule based approach will result in optimal solution. Utilized a new-and-novel approach of combining the matrix obtained from TF-IDF and KMeans Clustering methodology.
+- It is the expanded topic modeling specifically to be applied to multiple lower-level specialized entities (i.e., groups) embedded in a single document. It operates at the individual document and cluster level.
+- The sentence closest to the centroid (based on Euclidean distance) is selected as the representative sentence for that cluster.
+- **Implementation:** Preprocess text, extract features using TF-IDF, and summarize by selecting representative sentences.
+    - Source code for implentation & evaluation: `src/Extractive_Summarization.ipynb`
+    - ROUGE1 (F-Measure) = 24.71     
 
-Implemented in model.ipynb .
-Retraining the pre-trained transformer model with our derived dataset. Native pytorch method is utilized, rather than using training pipeline API, to get more control of model training and its parameters.
+## Testing
+- Implemented text summarization application using Gradio library for a web-based interface, for testing the model's inference.
+- **Source Code:** `src/interface.ipynb`
+<div align="center">
+    <a><img src="https://drive.usercontent.google.com/u/0/uc?id=1YSNYZJl25zKHkOSJl7suxty3wy-cyUMe&export=download" border="0"></a>
+</div><br>
 
-Outlay:
-- Setup & initialization
-- training loop
-- Evaluation loop
+## Deployment
+<div align="center">
+    <a><img src="https://drive.usercontent.google.com/u/0/uc?id=1mvbC3IZzRxS0Hx0DoO6EvrQyKqgD--Gw&export=download" border="0"></a>
+</div><br>
 
-Training loss = 1.3280
+### Application
+- **File Structure:** `summarize/`
+<div align="center">
+    <a><img src="https://drive.usercontent.google.com/u/0/uc?id=1OnHuW8YMPQYT88pqPbWAZCpgEFlic0kw&export=download" width="320" height="320" border="0"></a>
+</div><br>
 
-saved_model - file structure:
+### API Endpoints
+- Developed using FastAPI framework for handling URLs, files, and direct text input.
+    - **Source Code:** `summarizer/app.py` 
+- **Endpoints:**
+  - Root Endpoint
+  - Summarize URL
+  - Summarize File
+  - Summarize Text
 
-```
+### Extractor Modules
+- Extract text from various sources (URLs, PDF, DOCX) using BeautifulSoup and fitz.
+- **Source Code:** `summarizer/extractors.py`
 
-└── fine_tuned_bart
+### Extractive Summary Script
+- Implemented extractive summarizer module. Same as implemented in: src/bart.ipynb
+- **Source Code:** `summarizer/extractive_summary.py`
 
-    ├── config.json
+### User Interface
+- Developed a user-friendly interface using HTML, CSS, and JavaScript.
+- **Source Code:** `summarizer/templates/index.html`
+<div align="center">
+    <a><img src="https://drive.usercontent.google.com/u/0/uc?id=1EydlT7J-pZF4bgmLHD2isQCsp-_TS3uE&export=download" border="0"></a>
+</div><br>
 
-    ├── generation_config.json
+## Containerization
+- Developed a Dockerfile to build a Docker image for the FastAPI application.
+- **Source Code:** `summarizer/Dockerfile`
+- **Image:** [Docker Image](https://hub.docker.com/layers/mohankrishnagr/infosys_text-summarization/group/images/sha256-28802ba2a3b30d36b94fbd878c97585c02c813534fc80fdca5e81494b96bfd08?context=explore)
 
-    ├── merges.txt
-
-    ├── model.safetensors
-
-    ├── special_tokens_map.json
-
-    ├── tokenizer_config copy.json
-
-    ├── tokenizer_config.json
-
-    └── vocab.json
-```
- 
-### Model Validation (Custom)
-
-Implemented in src/evaluation.ipynb .
-Performance metrics - ROUGE (Recall-Oriented Understudy for Gisting Evaluation) is best suited to evaluate the model's performance for 'Text Summarizer'.
-
-Aimed to implement a custom evaluation function that calculate ROGUE based on model's inference.
-
-Even though the model has very minimal training loss but, the model performed inconsistenly in validation & testing phase. There's a suspected tensor error while training using method 1, which could be attributed to the inconsistency of the model's output. 
-
-## Method 2
-### -> Trainer Method
-### Model Training
-Implemented in src/bart.ipynb .
-A function was implemented for the dataset, to convert text data into model inputs and targets. Trainer class from transformer package was utilized for training and evaluation. Tainer is a simple but feature-complete training and eval loop for PyTorch, optimized for transformers.
-
-The model was trained with whole dataset for 10 epochs for 26:24:22 (HH:MM:SS) in 125420 steps.
-
-Training Loss = 0.174700
-
-### Model Validation
-Implemented in src/rouge.ipynb .
-ROUGE score is again used as the performance metric for model evaluation.
-
-Intresting, this model is quite robust in consistent performance with the Rogue1 score as 61.3224, which is a benchmark standard.
-
-## Model Selection for deployment
-Considered the performance metrics of the models trained by the forementioned methods.
-
-After the due analysis, the model trained using 'Method 2' was selected.
-
-## Model Deployment
-### Testing Interface
-Gradio - an open-source Python package that allows us to quickly build a demo - web-application for the trained models.
-For the initial phase after model validation, the 'gradio' library is best suited for our objective.
-
-Implemented in src/interface.ipynb .
-
-### Deployment (Ongoing)
-Ultilized FastAPI for backend development, fined tunned transformers (summarizer/saved_model) for text summarization, and Docker for deployment for a robust and scalable text summarization application capable of handling various input sources and generating concise summaries efficiently.
-
-Implmented extractor modules to handles various input sources (URL, pdf, docx, txt)
-
-To use the docker image run:
+## CI/CD Pipeline
+- Developed a CI/CD pipeline using Docker, Azure and GitHub Actions.
+- Utilized Azure Container Instance (ACI) for deploying the image, triggers for every push to the main branch.
+- **Source Code:** `.github/workflows/azure.yml`
+    - `.github/workflows/main.yml` (AWS)
+    - `.github/workflows/azure.yml` (Azure)
+- To use the docker image run:
 ```
 docker pull mohankrishnagr/infosys_text-summarization:final
 docker run -p 8000:8000 mohankrishnagr/infosys_text-summarization:final
@@ -111,14 +187,14 @@ Then checkout at,
 ```
 http://localhost:8000/
 ```
-### Deployed in AWS EC2
-Public IP:
+### Deployed in AWS EC2 (Not Recommended under free trail)
+Public IPv4:
 ```
 http://54.168.82.95/
 ```
 
-### Deployed in Azure Container Instance
-Public IP:
+### Deployed in Azure Container Instance (Recommended)
+Public IPv4:
 ```
 http://20.219.203.134:8000/
 ```
@@ -126,5 +202,28 @@ FQDN
 ```
 http://mohankrishnagr.centralindia.azurecontainer.io:8000/
 ```
-## Extractive Summarization Model 
-Implemented rule-based approach.
+
+- **Screenshots:** 
+<div align="center">
+    <a><img src="https://drive.usercontent.google.com/u/0/uc?id=1m2OYe7u1fS4yulQLyxYUs7kjmpFa5RND&export=download" border="0"></a>
+</div><br>
+<div align="center">
+    <a><img src="https://drive.usercontent.google.com/u/0/uc?id=1m2OYe7u1fS4yulQLyxYUs7kjmpFa5RND&export=download" border="0"></a>
+</div><br>
+<div align="center">
+    <a><img src="https://drive.usercontent.google.com/u/0/uc?id=1x2v1rZGpcZiAVHyGDy6pKRqrTSTtnPpm&export=download" border="0"></a>
+</div><br>
+<div align="center">
+    <a><img src="https://drive.usercontent.google.com/u/0/uc?id=1xsUfXRTERjEUevk__bOo37on4hGUOSnT&export=download" border="0"></a>
+</div><br>
+</i>
+
+----
+
+### End Note
+Thank you for your interest in our project! We welcome any feedback. Feel free to reach out to us.
+### Deployment (Ongoing)
+Ultilized FastAPI for backend development, fined tunned transformers (summarizer/saved_model) for text summarization, and Docker for deployment for a robust and scalable text summarization application capable of handling various input sources and generating concise summaries efficiently.
+
+Implmented extractor modules to handles various input sources (URL, pdf, docx, txt)
+
