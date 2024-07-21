@@ -27,6 +27,8 @@ A project by <em>Mohan Krishna G R</em>, AI/ML Intern @ Infosys Springboard, Sum
 - [Containerization](#containerization)
 - [CI/CD Pipeline](#cicd-pipeline)
 
+<i>
+    
 ## Problem Statement
 - Developing an automated text summarization system that can accurately and efficiently condense large bodies of text into concise summaries is essential for enhancing business operations.
 - This project aims to deploy NLP techniques to create a robust text summarization tool capable of handling various types of documents across different domains.
@@ -222,8 +224,4 @@ http://mohankrishnagr.centralindia.azurecontainer.io:8000/
 
 ### End Note
 Thank you for your interest in our project! We welcome any feedback. Feel free to reach out to us.
-### Deployment (Ongoing)
-Ultilized FastAPI for backend development, fined tunned transformers (summarizer/saved_model) for text summarization, and Docker for deployment for a robust and scalable text summarization application capable of handling various input sources and generating concise summaries efficiently.
-
-Implmented extractor modules to handles various input sources (URL, pdf, docx, txt)
 
